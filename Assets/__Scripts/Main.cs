@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Main : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class Main : MonoBehaviour {
 
     [Header("Set in Inspector")]
     public GameObject[] prefabEnemies; // Array of Enemy prefabs
+    public GameObject[] enemyPrefabs;
+    public GameObject enemyPrefab; // added by me
     public float enemySpawnPerSecond = 0.5f; // # Enemies/second
     public float enemyDefaultPadding = 1.5f; // Padding for position
     public WeaponDefinition[] weaponDefinitions;
@@ -19,7 +22,18 @@ public class Main : MonoBehaviour {
         WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield
     };
 
+    public static int waveDifficulty = 1; // added by me
+    // public float delayBeforeWave = 5f; // added by me
+    public static int delayAfterWave = 5; // added by me
+    public static int waveNum = 0;
+    public TextMeshProUGUI waveNumText;
+
     private BoundsCheck bndCheck;
+
+    void Start()
+    {
+        WaveCounter();
+    }
 
     public void ShipDestroyed( Enemy e)
     {
@@ -48,7 +62,7 @@ public class Main : MonoBehaviour {
         bndCheck = GetComponent<BoundsCheck>();
 
         // Invoke SpawnEnemy() once (in 2 seconds, based on default values)
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+        // Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
 
         // A generic Dictionary with WeaponType as the key
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
@@ -78,9 +92,6 @@ public class Main : MonoBehaviour {
         pos.x = Random.Range(xMin, xMax);
         pos.y = bndCheck.camHeight + enemyPadding;
         go.transform.position = pos;
-
-        // Invoke SpawnEnemy() again
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
     }
 
     public void DelayedRestart(float delay)
@@ -93,6 +104,7 @@ public class Main : MonoBehaviour {
     {
         // Reload _Scene_0 to restart the game
         SceneManager.LoadScene("_Scene_0");
+        waveNum = 0;
     }
     ///<summary>
     ///Static function that gets a WeaponDefinition from the WEAP_DICT static
@@ -114,5 +126,39 @@ public class Main : MonoBehaviour {
         // This returns a new WeaponDefinition with a type of WeaponType.none,
         // which means it has failed to find the right WeaponDefinition
         return new WeaponDefinition();
+    }
+
+    public void WaveController()
+    {
+        enemyPrefabs = GameObject.FindGameObjectsWithTag("Enemy");
+        enemyPrefab = GameObject.FindGameObjectWithTag("Enemy");
+        
+        if (enemyPrefabs.Length == 0 || enemyPrefab == null || !enemyPrefab) {
+            StartCoroutine(NextWave());
+            return;
+        }
+    }
+
+    IEnumerator NextWave()
+    {
+        for (int i = 0; i < waveDifficulty; i++) {
+            SpawnEnemy();
+        }
+
+        waveNum++;
+        waveDifficulty++;
+        
+        yield return new WaitForSeconds(delayAfterWave);
+    }
+
+    public void WaveCounter()
+    {
+        waveNumText.text = "Wave: " + waveNum.ToString();
+    }
+
+    void Update()
+    {
+        WaveController();
+        WaveCounter();
     }
 }

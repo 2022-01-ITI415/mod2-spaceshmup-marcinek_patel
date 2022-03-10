@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
     public bool showingDamage = false;
     public float damageDoneTime; // Time to stop showing damage
     public bool notifiedOfDestruction = false; // Will be used later
+    public static int numShipsDestroyed = 0; // added by me
 
     protected BoundsCheck bndCheck;
 
@@ -97,6 +98,7 @@ public class Enemy : MonoBehaviour {
                     notifiedOfDestruction = true;
                     // Destroy this enemy
                     Destroy(this.gameObject);
+                    numShipsDestroyed++;
                 }
                 Destroy(otherGO);
                 break;
