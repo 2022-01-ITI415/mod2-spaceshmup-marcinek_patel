@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Enemy : MonoBehaviour {
 
@@ -18,7 +19,9 @@ public class Enemy : MonoBehaviour {
     public bool showingDamage = false;
     public float damageDoneTime; // Time to stop showing damage
     public bool notifiedOfDestruction = false; // Will be used later
-    public static int numShipsDestroyed = 0; // added by me
+    public static int numShipsDestroyed = 0;
+    public static int playerScore = 0;
+    
 
     protected BoundsCheck bndCheck;
 
@@ -99,6 +102,8 @@ public class Enemy : MonoBehaviour {
                     // Destroy this enemy
                     Destroy(this.gameObject);
                     numShipsDestroyed++;
+                    playerScore+=50;
+
                 }
                 Destroy(otherGO);
                 break;

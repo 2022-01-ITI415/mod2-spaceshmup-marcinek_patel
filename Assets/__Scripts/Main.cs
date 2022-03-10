@@ -27,6 +27,7 @@ public class Main : MonoBehaviour {
     public static int delayAfterWave = 5; // added by me
     public static int waveNum = 0;
     public TextMeshProUGUI waveNumText;
+    public TextMeshProUGUI playerScoreText; // added by me
 
     private BoundsCheck bndCheck;
 
@@ -105,6 +106,8 @@ public class Main : MonoBehaviour {
         // Reload _Scene_0 to restart the game
         SceneManager.LoadScene("_Scene_0");
         waveNum = 0;
+        waveDifficulty = 1;
+        Enemy.playerScore = 0;
     }
     ///<summary>
     ///Static function that gets a WeaponDefinition from the WEAP_DICT static
@@ -156,9 +159,15 @@ public class Main : MonoBehaviour {
         waveNumText.text = "Wave: " + waveNum.ToString();
     }
 
+    public void ScoreCounter()
+    {
+        playerScoreText.text = "Score: " + Enemy.playerScore.ToString();
+    }
+
     void Update()
     {
         WaveController();
         WaveCounter();
+        ScoreCounter();
     }
 }
