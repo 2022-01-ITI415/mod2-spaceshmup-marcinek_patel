@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Enemy_Missile :MonoBehaviour {
+public class Enemy_Missile : Enemy {
 
     public Transform target;
     public Rigidbody rb;
@@ -14,12 +14,11 @@ public class Enemy_Missile :MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         
     }
-    private void FixedUpdate()
+    public override void Move() // private void FixedUpdate()
     {
-       
         rb.velocity = transform.up * missileVelocity;
         var targetRotation = Quaternion.LookRotation(target.position - transform.position);
         rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turn));
+        base.Move();
     }
-
 }
