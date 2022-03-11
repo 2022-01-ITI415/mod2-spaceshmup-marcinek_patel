@@ -12,7 +12,7 @@ public class Main : MonoBehaviour {
     [Header("Set in Inspector")]
     public GameObject[] prefabEnemies; // Array of Enemy prefabs
     public GameObject[] enemyPrefabs;
-    public GameObject enemyPrefab; // added by me
+    private static GameObject enemyPrefab; // added by me
     public float enemySpawnPerSecond = 0.5f; // # Enemies/second
     public float enemyDefaultPadding = 1.5f; // Padding for position
     public WeaponDefinition[] weaponDefinitions;
@@ -27,13 +27,16 @@ public class Main : MonoBehaviour {
     public static int delayAfterWave = 5; // added by me
     public static int waveNum = 0;
     public TextMeshProUGUI waveNumText;
-    public TextMeshProUGUI playerScoreText; // added by me
+    public TextMeshProUGUI playerScoreText;
+    public  TextMeshProUGUI gameOverText;
+    public GameObject gameOverTextObj; // added by me
 
     private BoundsCheck bndCheck;
 
     void Start()
     {
         WaveCounter();
+        gameOverTextObj.SetActive(false);
     }
 
     public void ShipDestroyed( Enemy e)
@@ -98,6 +101,7 @@ public class Main : MonoBehaviour {
     public void DelayedRestart(float delay)
     {
         // Invoke the Restart() method in delay seconds
+        gameOverTextObj.SetActive(true);
         Invoke("Restart", delay);
     }
 
@@ -150,7 +154,7 @@ public class Main : MonoBehaviour {
 
         waveNum++;
         waveDifficulty++;
-        
+
         yield return new WaitForSeconds(delayAfterWave);
     }
 
