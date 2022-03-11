@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2412271026472889617}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.25000006, y: -0.24999997, z: 0.066987306, w: 0.9330127}
   m_LocalPosition: {x: 56.9, y: -6.7, z: -4}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 6672940275663652877}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: -30, z: 0}
 --- !u!54 &2412271026472889620
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,8 +176,11 @@ MonoBehaviour:
   notifiedOfDestruction: 0
   target: {fileID: 1752540758043461679, guid: 73460e5cb372a294f95cd855ecdfb1aa, type: 3}
   rb: {fileID: 2412271026472889620}
-  turn: 30
-  missileVelocity: 2.5
+  force: 4
+  rotationForce: 200
+  waveFrequency: 3
+  waveWidth: 5
+  waveRotY: 40
 --- !u!114 &2179491631588369868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67382aea26b7fbf4eb9beabb4fb36ee4, type: 2}
+  - {fileID: 2100000, guid: 9388fd8803a2ce346b4b95f0c41c377e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -355,7 +358,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f61762a27e302e742b10b1b6fd480708, type: 2}
+  - {fileID: 2100000, guid: 9388fd8803a2ce346b4b95f0c41c377e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -450,7 +453,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f61762a27e302e742b10b1b6fd480708, type: 2}
+  - {fileID: 2100000, guid: 9388fd8803a2ce346b4b95f0c41c377e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
