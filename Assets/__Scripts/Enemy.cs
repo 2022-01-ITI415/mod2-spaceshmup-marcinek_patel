@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     [Header("Set in Inspector: Enemy")]
-    public float speed = 10f; // The speed in m/s
+    public static float speed = 10f; // The speed in m/s
     public float fireRate = 0.3f; // Seconds/shot (Unused)
     public float health = 10;
     public int score = 100; // Points earned for destroying this
@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour {
     public bool showingDamage = false;
     public float damageDoneTime; // Time to stop showing damage
     public bool notifiedOfDestruction = false; // Will be used later
+    public static int numShipsDestroyed = 0;
+    public static int playerScore = 0;
+    
 
     protected BoundsCheck bndCheck;
 
@@ -97,6 +100,9 @@ public class Enemy : MonoBehaviour {
                     notifiedOfDestruction = true;
                     // Destroy this enemy
                     Destroy(this.gameObject);
+                    numShipsDestroyed++;
+                    playerScore+=50;
+
                 }
                 Destroy(otherGO);
                 break;
