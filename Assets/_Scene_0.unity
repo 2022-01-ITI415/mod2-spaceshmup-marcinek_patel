@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068597007208b5040be849aebe1595f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poi: {fileID: 1342965577}
+  poi: {fileID: 0}
   panels:
   - {fileID: 625516129}
   - {fileID: 209590096}
@@ -1257,14 +1257,8 @@ Transform:
   m_LocalScale: {x: 80, y: 80, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1342965577 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1752540758043461674, guid: 73460e5cb372a294f95cd855ecdfb1aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1752540758849556323}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1603331986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,7 +1340,7 @@ PrefabInstance:
     - target: {fileID: 1752540758043461679, guid: 73460e5cb372a294f95cd855ecdfb1aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1752540758043461679, guid: 73460e5cb372a294f95cd855ecdfb1aa,
         type: 3}

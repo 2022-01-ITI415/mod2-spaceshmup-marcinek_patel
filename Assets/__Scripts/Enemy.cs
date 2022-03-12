@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class Enemy : MonoBehaviour {
 
     [Header("Set in Inspector: Enemy")]
-    public float speed = 10f; // The speed in m/s
+    public static float speed = 10f; // The speed in m/s
     public float fireRate = 0.3f; // Seconds/shot (Unused)
     public float health = 10;
     public int score = 100; // Points earned for destroying this
