@@ -5,61 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy_Missile : Enemy {
 
-    public Transform target;
-    public Rigidbody rb;
-    public float force;
-    public float rotationForce;
-    private float x0; // The initial x value of pos
-    private float birthTime;
-    public float waveFrequency = 3;
-    // sine wave width in meters
-    public float waveWidth = 5;
-    public float waveRotY = 40;
-
+    // public Transform target;
+    // public Rigidbody rb;
+    public float missileVelocity;
+    // public float rotateSpeed = 30f;
+    public float birthTime;
+    
     void start()
     {
-        rb = GetComponent<Rigidbody>();
-       
-        x0 = pos.x;
-
+        // rb = GetComponent<Rigidbody>();
         birthTime = Time.time;
-
+        missileVelocity = Enemy.speed;
     }
+
     public override void Move() // private void FixedUpdate()
     {
-        if (target != null)
-        {
-            Vector3 direction = target.position - rb.position;
-            direction.Normalize();
-            Vector3 rotatioAmount = Vector3.Cross(transform.forward, direction);
-            rb.angularVelocity = rotatioAmount * rotationForce;
-            rb.velocity = transform.forward * force;
-        }
+        float step = Time.deltaTime * missileVelocity;
+        var target = GameObject.Find("_Hero");
+        var toTarget  = (target.transform.position - transform.position).normalized;
+        // if (toTarget != Vector3.zero) {
+        var targetRotation = Quaternion.LookRotation(toTarget);
+        targetRotation *= Quaternion.Euler(90, 90, 20);
+        // transform.rotation = targetRotation; 
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+        // base.Move();
     }
-    public void FixUpdate()
-    {
-        Vector3 tempPos = pos;
-
-        float age = Time.time - birthTime;
-        float theta = Mathf.PI * 2 * age / waveFrequency;
-        float sin = Mathf.Sin(theta);
-        tempPos.x = x0 + waveWidth * sin;
-        pos = tempPos;
-
-        //rotate a bit about y
-        Vector3 rot = new Vector3(0, sin * waveRotY, 0);
-        this.transform.rotation = Quaternion.Euler(rot);
-
-        // base.Move() still handles the movement down in y
-        base.Move();
-
-        // print (bndCheck.isOnScreen);
-    }
-
-    public void OnCollisionEnter (Collision collision)
-    {
-        Destroy(gameObject);
-    }
-      
 }
-
